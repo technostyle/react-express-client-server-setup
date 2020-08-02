@@ -3,6 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const PORT = 3000
 const app = express()
 
@@ -19,4 +21,7 @@ app.get('/api/test', function (req, res) {
   res.send({ data: 'hello world' })
 })
 
-app.listen(PORT, () => console.log(`Database manager server listening on port ${PORT}`))
+app.listen(PORT, () => isProduction && console.log(`
+  Database manager server listening on port ${PORT}
+  Open http://localhost:${PORT}/
+`))

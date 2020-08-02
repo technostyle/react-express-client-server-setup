@@ -3,11 +3,12 @@
   "license": "MIT",
   "scripts": {
     "dev-client": "webpack-dev-server --open --config webpack.dev.js",
-    "dev": "concurrently \"yarn run dev-client\" \"yarn run server\"",
+    "dev-server": "cross-env NODE_ENV=development node server",
+    "prod-server": "cross-env NODE_ENV=production node server",
+    "dev": "concurrently \"yarn run dev-client\" \"yarn run dev-server\"",
     "build": "webpack --config webpack.prod.js",
-    "server": "node server",
-    "start": "yarn run server",
-    "format": "eslint *.js ./client/app/**/*{js,jsx} ./server/**/*.js --color --format stylish --fix"
+    "start": "yarn run build && yarn run prod-server",
+    "lint": "eslint *.js ./client/app/**/*{js,jsx} ./server/**/*.js --color --format stylish --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.11.0",
@@ -18,6 +19,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "eslint": "^7.6.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
